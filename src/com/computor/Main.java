@@ -18,6 +18,16 @@ public class Main {
                 formulaTyped[i].getClass().getName()
             );
         }
+
+        Object[] formulaMultiplied = Operations.performMultiplications(formulaTyped);
+
+        for (int i = 0; i < formulaMultiplied.length; ++i) {
+            System.out.printf(
+                    "value: %s\t type: %s\n",
+                    String.valueOf(formulaMultiplied[i]),
+                    formulaMultiplied[i].getClass().getName()
+            );
+        }
         return;
     }
 

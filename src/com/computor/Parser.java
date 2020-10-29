@@ -20,10 +20,10 @@ public class Parser {
         try {
             return Double.parseDouble(term);
         } catch(Exception e) {
-            if (term.contains("^"))
-                return new Term(term);
+            if (Operator.checkIfOperator(term))
+                return new Operator(term);
             else
-                return term;
+                return new Term(term);
         }
     }
 
