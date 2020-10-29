@@ -16,26 +16,38 @@ public class Main {
         // TODO test multiple chained multiplications e.g. '3 * 3 * 3'
         Object[] formulaMultiplied = Operations.performMultiplications(formulaTyped);
 
-        System.out.println("After multiplications:");
+/*        System.out.println("After multiplications:");
         for (int i = 0; i < formulaMultiplied.length; ++i) {
             System.out.printf(
                     "value: %s\t type: %s\n",
                     String.valueOf(formulaMultiplied[i]),
                     formulaMultiplied[i].getClass().getName()
             );
-        }
+        }*/
 
         // Replaces '-' operators with '+', moving the negation to the following term instead, in place
         Operations.moveMinusesToTerms(formulaMultiplied);
 
-        System.out.println("After negations:");
+        /*System.out.println("After negations:");
         for (int i = 0; i < formulaMultiplied.length; ++i) {
             System.out.printf(
                     "value: %s\t type: %s\n",
                     String.valueOf(formulaMultiplied[i]),
                     formulaMultiplied[i].getClass().getName()
             );
+        }*/
+
+        Term[] leftSide = Operations.moveTermsToLeftSide(formulaMultiplied);
+
+        System.out.println("All on the left");
+        for (int i = 0; i < leftSide.length; ++i) {
+            System.out.printf(
+                    "value: %s\t type: %s\n",
+                    String.valueOf(leftSide[i]),
+                    leftSide[i].getClass().getName()
+            );
         }
+
 
         System.out.printf("Original formula: %s", args[0]);
         return;

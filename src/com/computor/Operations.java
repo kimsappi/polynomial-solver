@@ -64,4 +64,28 @@ public class Operations {
             formula[index + 1] = negated;
         }
     }
+
+    public static Term[] moveTermsToLeftSide(Object[] formula) {
+        ArrayList<Term> leftSide = new ArrayList<>();
+        boolean flipSign = false;
+        Term tmp;
+
+        for (Object item : formula) {
+            if (item instanceof Operator && ((Operator) item).isType('=')) {
+                if (flipSign)
+                    throw new IllegalArgumentException("Encountered 2 equality signs, invalid equation");
+                else
+                    flipSign = true;
+            }
+            if (!(item instanceof Term))
+                continue;
+
+            tmp = (Term) item;
+            if (flipSign)
+                tmp.flipSign();
+            leftSide.add(tmp);
+        }
+
+        return leftSide.toArray(new Term[0]);
+    }
 }
