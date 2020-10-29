@@ -1,8 +1,12 @@
 package com.computor;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
+        String variable;
+
         if (args.length != 1) {
             System.out.println("Please give a formula as a parameter.");
             return;
@@ -42,14 +46,21 @@ public class Main {
         System.out.println("All on the left");
         for (int i = 0; i < leftSide.length; ++i) {
             System.out.printf(
-                    "value: %s\t type: %s\n",
-                    String.valueOf(leftSide[i]),
-                    leftSide[i].getClass().getName()
+                "value: %s\t type: %s\n",
+                String.valueOf(leftSide[i]),
+                leftSide[i].getClass().getName()
             );
         }
 
+        variable = Util.getVariable(leftSide);
 
-        System.out.printf("Original formula: %s", args[0]);
+        // coefficients should contain the sum of the coefficients indexed by power
+        // e.g. 5 * X^0 - 3 * X^1 - 1 * X^2 would be [5, -3, -1]
+        int[] coefficients = Operations.collateTermsWithSameExponent(leftSide);
+
+
+        System.out.printf("Original formula: %s\n", args[0]);
+        System.out.println(Arrays.toString(coefficients));
         return;
     }
 

@@ -88,4 +88,15 @@ public class Operations {
 
         return leftSide.toArray(new Term[0]);
     }
+
+    public static int[] collateTermsWithSameExponent(Term[] terms) {
+        int maxExponent = Util.getMaxExponent(terms);
+        int[] coefficientsByExponent = new int[maxExponent + 1];
+
+        for (Term term : terms) {
+            coefficientsByExponent[term.getExponent()] += term.getCoefficient();
+        }
+
+        return coefficientsByExponent;
+    }
 }

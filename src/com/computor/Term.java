@@ -1,24 +1,24 @@
 package com.computor;
 
 public class Term {
-    double coefficient = 1;
-    String variable;
-    int exponent;
+    private double coefficient = 1;
+    private String variable;
+    private IntOrDouble exponent;
 
     public Term(String term) {
         try {
             this.coefficient = Double.parseDouble(term);
             this.variable = null;
-            this.exponent = 0;
+            this.exponent = new IntOrDouble(0);
         } catch(Exception e) {
             String[] split = term.split("\\^");
             if (split.length > 2)
                 throw new IllegalArgumentException("Illegal term with 2 carets.");
             this.variable = split[0];
             if (split.length == 2)
-                this.exponent = Integer.parseInt(split[1]);
+                this.exponent = new IntOrDouble(Integer.parseInt(split[1]));
             else
-                this.exponent = 1;
+                this.exponent = new IntOrDouble(1);
         }
     }
 
@@ -28,7 +28,7 @@ public class Term {
         else if (this.variable == null)
             this.variable = other.variable;
         this.coefficient *= other.coefficient;
-        this.exponent += other.exponent;
+        this.exponent.sum(other.exponent);
     }
 
     public void flipSign() {
@@ -37,5 +37,17 @@ public class Term {
 
     public String toString() {
         return String.format("%f * %s ^ %d", this.coefficient, this.variable, this.exponent);
+    }
+
+    public String getVariable() {
+        return this.variable;
+    }
+
+    public Number getExponent() {
+        return this.exponent.getValue();
+    }
+
+    public double getCoefficient() {
+        return this.coefficient;
     }
 }
