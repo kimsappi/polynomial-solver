@@ -17,14 +17,10 @@ public class Parser {
     }
 
     static Object parseTerm(String term) {
-        try {
-            return Double.parseDouble(term);
-        } catch(Exception e) {
-            if (Operator.checkIfOperator(term))
-                return new Operator(term);
-            else
-                return new Term(term);
-        }
+        if (Operator.checkIfOperator(term))
+            return new Operator(term);
+        else
+            return new Term(term);
     }
 
 }

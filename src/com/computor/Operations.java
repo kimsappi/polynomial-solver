@@ -20,20 +20,13 @@ public class Operations {
     }
 
     public static Object performMultiplication(Object left, Object right) {
-        Double coefficient;
-        Term term;
-
-        if (left instanceof Double && right instanceof Term) {
-            term = (Term) right;
-            coefficient = (Double) left;
-        } else if (left instanceof Term && right instanceof Double) {
-            term = (Term) left;
-            coefficient = (Double) right;
-        } else {
+        if (!(left instanceof Term && right instanceof Term))
             throw new IllegalArgumentException("Double*Double or Term*Term not supported yet");
-        }
-        term.setCoefficient(coefficient);
-        return term;
+
+        Term lhs = (Term) left;
+        Term rhs = (Term) right;
+        lhs.multiplyByTerm(rhs);
+        return lhs;
     }
 
     public static Object[] performMultiplications(Object[] formula) {
