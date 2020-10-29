@@ -1,7 +1,7 @@
 package com.computor;
 
 public class Term {
-    double coefficient;
+    double coefficient = 1;
     String variable;
     int exponent;
 
@@ -21,6 +21,6 @@ public class Term {
     }
 
     public String toString() {
-        return String.format("%s ^ %d", this.variable, this.exponent);
+        return String.format("%f * %s ^ %d", this.coefficient, this.variable, this.exponent);
     }
 }

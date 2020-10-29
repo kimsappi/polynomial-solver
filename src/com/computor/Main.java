@@ -19,6 +19,7 @@ public class Main {
             );
         }
 
+        System.out.println("After multiplications:");
         Object[] formulaMultiplied = Operations.performMultiplications(formulaTyped);
 
         for (int i = 0; i < formulaMultiplied.length; ++i) {
@@ -28,6 +29,8 @@ public class Main {
                     formulaMultiplied[i].getClass().getName()
             );
         }
+
+        System.out.printf("Original formula: %s", args[0]);
         return;
     }
 
