@@ -31,6 +31,10 @@ public class Term {
         this.exponent += other.exponent;
     }
 
+    public void flipSign() {
+        this.coefficient *= -1;
+    }
+
     public String toString() {
         return String.format("%f * %s ^ %d", this.coefficient, this.variable, this.exponent);
     }

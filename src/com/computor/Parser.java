@@ -9,7 +9,6 @@ public class Parser {
     public static Object[] parseOperandsOperators(String[] formula) {
         Object[] ret = new Object[formula.length];
         for (int i = 0; i < formula.length; ++i) {
-            System.out.printf("%d %s\n", i, formula[i]);
             Object term = Parser.parseTerm((formula[i]));
             ret[i] = term;
         }

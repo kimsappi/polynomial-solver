@@ -6,13 +6,13 @@ public class Operations {
     // Using forEach + lambda or Streams or something would have been so much
     // nicer but IntelliJ complains that it doesn't know what forEach is
     // and I don't know how to change the SDK version or whatever...
-    private static ArrayList<Integer> getMultiplicationIndices(Object[] formula) {
+    private static ArrayList<Integer> getOperatorIndices(Object[] formula, char type) {
         ArrayList<Integer> indices = new ArrayList<>();
 
         for (int i = 0; i < formula.length; ++i) {
             if (formula[i] instanceof Operator) {
                 Operator tmp = (Operator) formula[i];
-                if (tmp.isMultiplication())
+                if (tmp.isType(type))
                     indices.add(i);
             }
         }
@@ -21,7 +21,7 @@ public class Operations {
 
     public static Object performMultiplication(Object left, Object right) {
         if (!(left instanceof Term && right instanceof Term))
-            throw new IllegalArgumentException("Double*Double or Term*Term not supported yet");
+            throw new IllegalArgumentException("Invalid formula: Operator followed by Operator");
 
         Term lhs = (Term) left;
         Term rhs = (Term) right;
@@ -30,8 +30,8 @@ public class Operations {
     }
 
     public static Object[] performMultiplications(Object[] formula) {
-        int index = 0;
-        ArrayList<Integer> multiplicationIndices = Operations.getMultiplicationIndices(formula);
+        int index;
+        ArrayList<Integer> multiplicationIndices = Operations.getOperatorIndices(formula, '*');
 
         for (int i = 0; i < multiplicationIndices.size(); ++i) {
             index = multiplicationIndices.get(i).intValue();
@@ -50,5 +50,18 @@ public class Operations {
         }
 
         return multiplicationsDone;
+    }
+
+    public static void moveMinusesToTerms(Object[] formula) {
+        int index;
+        ArrayList<Integer> minusIndices = Operations.getOperatorIndices(formula, '-');
+
+        for (int i = 0; i < minusIndices.size(); ++i) {
+            index = minusIndices.get(i).intValue();
+            formula[index] = new Operator("+");
+            Term negated = (Term) formula[index + 1];
+            negated.flipSign();
+            formula[index + 1] = negated;
+        }
     }
 }

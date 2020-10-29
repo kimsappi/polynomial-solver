@@ -18,8 +18,8 @@ public class Operator {
         this.operator = operator.charAt(0);
     }
 
-    public boolean isMultiplication() {
-        return this.operator == '*';
+    public boolean isType(char type) {
+        return this.operator == type;
     }
 
     public String toString() {
