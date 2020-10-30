@@ -1,5 +1,7 @@
 package com.computor;
 
+import java.util.HashMap;
+
 public class Util {
     public static String getVariable(Term[] terms) {
         String variable = null;
@@ -14,6 +16,16 @@ public class Util {
         }
 
         return variable;
+    }
+
+    public static boolean exponentsIntBetween0And2(HashMap<Number, Number> terms) {
+        IntOrDouble exponent;
+        for (Number exponentNumber : terms.keySet()) {
+            exponent = (IntOrDouble) exponentNumber;
+            if (!(exponent.isInteger() && exponent.intValue() >= 0 && exponent.intValue() <= 2))
+                return false;
+        }
+        return true;
     }
 
     /*public static int getMaxExponent(Term[] terms) {

@@ -91,8 +91,6 @@ public class Operations {
     }
 
     public static HashMap<Number, Number> collateTermsWithSameExponent(Term[] terms) {
-
-        //int maxExponent = Util.getMaxExponent(terms);
         HashMap<Number, Number> coefficientsByExponent = new HashMap<>();
         IntOrDouble tmp;
 
@@ -101,7 +99,7 @@ public class Operations {
             if (tmp == null)
                 coefficientsByExponent.put(term.getExponent(), term.getCoefficient());
             else {
-                tmp.sum((IntOrDouble) term.getCoefficient());
+                tmp.sum(term.getCoefficient());
                 coefficientsByExponent.put(term.getExponent(), tmp);
             }
         }

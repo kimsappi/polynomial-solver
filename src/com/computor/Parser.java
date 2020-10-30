@@ -22,4 +22,12 @@ public class Parser {
             return new Term(term);
     }
 
+    static IntOrDouble parseIntOrDouble(String str) {
+        try {
+            return new IntOrDouble(Integer.parseInt(str));
+        } catch (Exception e) {
+            return new IntOrDouble(Double.parseDouble(str));
+        }
+    }
+
 }
