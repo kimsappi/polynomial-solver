@@ -7,7 +7,7 @@ public class Term {
 
     public Term(String term) {
         try {
-            this.coefficient = new IntOrDouble(Double.parseDouble(term));
+            this.coefficient = Parser.parseIntOrDouble(term);
             this.variable = null;
             this.exponent = new IntOrDouble(0);
         } catch(Exception e) {
@@ -43,11 +43,11 @@ public class Term {
         return this.variable;
     }
 
-    public Number getExponent() {
-        return this.exponent.getValue();
+    public IntOrDouble getExponent() {
+        return this.exponent;
     }
 
-    public Number getCoefficient() {
+    public IntOrDouble getCoefficient() {
         return this.coefficient;
     }
 }

@@ -1,6 +1,6 @@
 package com.computor;
 
-public class IntOrDouble extends Number {
+public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
     private boolean isInteger = false;
     private double dbl;
     private int integer;
@@ -35,9 +35,9 @@ public class IntOrDouble extends Number {
     }
 
     public void multiply(IntOrDouble other) {
-        System.out.printf("%d\n", this.integer);
+        /*System.out.printf("%d\n", this.integer);
         System.out.printf("%f\n", this.dbl);
-        System.out.printf("%s\n", String.valueOf(isInteger()));
+        System.out.printf("%s\n", String.valueOf(isInteger()));*/
         if (this.isInteger) {
             if (other.isInteger())
                 this.integer *= (int) other.getValue();
@@ -60,12 +60,21 @@ public class IntOrDouble extends Number {
         return this.isInteger;
     }
 
-    /*public String toString() {
-        if (this.isInteger)
-            return String.format("%d", this.integer);
+    @Override
+    public int compareTo(IntOrDouble other) {
+        double comparison = this.doubleValue() - other.doubleValue();
+
+        if (comparison > 0)
+            return 1;
+        else if (comparison < 0)
+            return -1;
         else
-            return String.format("%f", this.dbl);
-    }*/
+            return 0;
+    }
+
+    public boolean equals(IntOrDouble other) {
+        return this.getValue() == other.getValue();
+    }
 
     @Override
     public double doubleValue() {
@@ -84,6 +93,6 @@ public class IntOrDouble extends Number {
 
     @Override
     public int intValue() {
-        return (int) this.longValue();
+        return this.integer;
     }
 }
