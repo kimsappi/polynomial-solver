@@ -1,6 +1,6 @@
 package com.computor;
 
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class Main {
 
@@ -16,6 +16,14 @@ public class Main {
         String[] splitFormula = Parser.parseFormula(args[0]);
         // Creates an array consisting or Term and Operator objects
         Object[] formulaTyped = Parser.parseOperandsOperators(splitFormula);
+                System.out.println("After multiplications:");
+        for (int i = 0; i < formulaTyped.length; ++i) {
+            System.out.printf(
+                    "value: %s\t type: %s\n",
+                    String.valueOf(formulaTyped[i]),
+                    formulaTyped[i].getClass().getName()
+            );
+        }
         // Multiplies all terms around multiplication operators together
         // TODO test multiple chained multiplications e.g. '3 * 3 * 3'
         Object[] formulaMultiplied = Operations.performMultiplications(formulaTyped);
@@ -56,11 +64,9 @@ public class Main {
 
         // coefficients should contain the sum of the coefficients indexed by power
         // e.g. 5 * X^0 - 3 * X^1 - 1 * X^2 would be [5, -3, -1]
-        int[] coefficients = Operations.collateTermsWithSameExponent(leftSide);
-
+        HashMap<Number, Number> coefficients = Operations.collateTermsWithSameExponent(leftSide);
 
         System.out.printf("Original formula: %s\n", args[0]);
-        System.out.println(Arrays.toString(coefficients));
         return;
     }
 

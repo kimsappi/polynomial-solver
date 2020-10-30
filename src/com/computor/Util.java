@@ -16,14 +16,14 @@ public class Util {
         return variable;
     }
 
-    public static int getMaxExponent(Term[] terms) {
-        int max = 0;
+    /*public static int getMaxExponent(Term[] terms) {
+        Number max = 0;
 
         for (Term term : terms) {
-            if (term.getExponent() > max)
+            if (term.getExponent().getValue() > max)
                 max = term.getExponent();
         }
 
         return max;
-    }
+    }*/
 }

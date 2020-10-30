@@ -1,13 +1,13 @@
 package com.computor;
 
 public class Term {
-    private double coefficient = 1;
+    private IntOrDouble coefficient = new IntOrDouble(1);
     private String variable;
     private IntOrDouble exponent;
 
     public Term(String term) {
         try {
-            this.coefficient = Double.parseDouble(term);
+            this.coefficient = new IntOrDouble(Double.parseDouble(term));
             this.variable = null;
             this.exponent = new IntOrDouble(0);
         } catch(Exception e) {
@@ -27,16 +27,16 @@ public class Term {
             throw new IllegalArgumentException("Cannot multiply Term by Operator");
         else if (this.variable == null)
             this.variable = other.variable;
-        this.coefficient *= other.coefficient;
+        this.coefficient.multiply(other.coefficient);
         this.exponent.sum(other.exponent);
     }
 
     public void flipSign() {
-        this.coefficient *= -1;
+        this.coefficient.multiply(new IntOrDouble(-1));
     }
 
     public String toString() {
-        return String.format("%f * %s ^ %d", this.coefficient, this.variable, this.exponent);
+        return String.format("%s * %s ^ %s", this.coefficient, this.variable, this.exponent);
     }
 
     public String getVariable() {
@@ -47,7 +47,7 @@ public class Term {
         return this.exponent.getValue();
     }
 
-    public double getCoefficient() {
+    public Number getCoefficient() {
         return this.coefficient;
     }
 }

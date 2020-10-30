@@ -1,6 +1,7 @@
 package com.computor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Operations {
     // Using forEach + lambda or Streams or something would have been so much
@@ -89,14 +90,23 @@ public class Operations {
         return leftSide.toArray(new Term[0]);
     }
 
-    public static int[] collateTermsWithSameExponent(Term[] terms) {
-        int maxExponent = Util.getMaxExponent(terms);
-        int[] coefficientsByExponent = new int[maxExponent + 1];
+    public static HashMap<Number, Number> collateTermsWithSameExponent(Term[] terms) {
+
+        //int maxExponent = Util.getMaxExponent(terms);
+        HashMap<Number, Number> coefficientsByExponent = new HashMap<>();
+        IntOrDouble tmp;
 
         for (Term term : terms) {
-            coefficientsByExponent[term.getExponent()] += term.getCoefficient();
+            tmp = (IntOrDouble) coefficientsByExponent.get(term.getExponent());
+            if (tmp == null)
+                coefficientsByExponent.put(term.getExponent(), term.getCoefficient());
+            else {
+                tmp.sum((IntOrDouble) term.getCoefficient());
+                coefficientsByExponent.put(term.getExponent(), tmp);
+            }
         }
 
         return coefficientsByExponent;
     }
+
 }
