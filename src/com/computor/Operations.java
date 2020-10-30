@@ -97,7 +97,7 @@ public class Operations {
 
         for (Term term : terms) {
             tmp = coefficientsByExponent.get(term.getExponent().getValue());
-            System.out.printf("tmp: %s\n", String.valueOf(tmp));
+            //System.out.printf("tmp: %s\n", String.valueOf(tmp));
             if (tmp == null)
                 coefficientsByExponent.put(term.getExponent().getValue(), term.getCoefficient());
             else {

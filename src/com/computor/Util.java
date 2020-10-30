@@ -3,6 +3,13 @@ package com.computor;
 import java.util.HashMap;
 
 public class Util {
+    enum EquationTypes {
+        constant,
+        linear,
+        quadratic,
+        superquadratic
+    }
+
     public static String getVariable(Term[] terms) {
         String variable = null;
         String tmpVariable;
@@ -18,18 +25,31 @@ public class Util {
         return variable;
     }
 
-    public static boolean exponentsIntBetween0And2(HashMap<Number, Number> terms) {
+    public static Util.EquationTypes checkEquationType(HashMap<Number, Number> terms) {
         IntOrDouble exponent;
         IntOrDouble coefficient;
+        int maxExponent = 0;
+
         for (HashMap.Entry<Number, Number> entry : terms.entrySet()) {
             exponent = new IntOrDouble(entry.getKey());
             coefficient = (IntOrDouble) entry.getValue();
-            if (!(exponent.isInteger()) || (
-                exponent.intValue() >= 0 && exponent.intValue() <= 2 && coefficient.isNonZero()
-            ))
-                return false;
+            if (!(exponent.isInteger()) ||
+                ((exponent.intValue() < 0 || exponent.intValue() > 2) && coefficient.isNonZero())
+            )
+                return Util.EquationTypes.superquadratic;
+            else
+                maxExponent = exponent.intValue() > maxExponent ? exponent.intValue() : maxExponent;
         }
-        return true;
+        switch(maxExponent) {
+            case(0):
+                return Util.EquationTypes.constant;
+            case(1):
+                return Util.EquationTypes.linear;
+            case(2):
+                return Util.EquationTypes.quadratic;
+            default:
+                throw new IllegalStateException("Couldn't recognise equation type");
+        }
     }
 
     // Not allowed to use mathematical libraries

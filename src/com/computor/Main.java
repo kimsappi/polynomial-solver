@@ -6,7 +6,7 @@ public class Main {
 
     public static void solve(String equation) {
         String variable;
-        boolean exponentsIntBetween0And2 = false;
+        Util.EquationTypes eqnType;
 
         // Creates array of strings, each containing a single term or operator (inc '=')
         String[] splitFormula = Parser.parseFormula(equation);
@@ -61,13 +61,13 @@ public class Main {
         // coefficients should contain the sum of the coefficients indexed by power
         // e.g. 5 * X^0 - 3 * X^1 - 1 * X^2 would be [5, -3, -1]
         HashMap<Number, Number> coefficientsByExponent = Operations.collateTermsWithSameExponent(leftSide);
-        if (Util.exponentsIntBetween0And2(coefficientsByExponent))
-            exponentsIntBetween0And2 = true;
-        System.out.printf("Exponents between 0 and 2: %s\n", String.valueOf(exponentsIntBetween0And2));
+        eqnType = Util.checkEquationType(coefficientsByExponent);
 
         for (HashMap.Entry<Number, Number> entry : coefficientsByExponent.entrySet()) {
             System.out.printf("Exponent: %s\tCoefficient: %s\n", entry.getKey(), entry.getValue());
         }
+
+        System.out.printf("Equation type: %s\n", eqnType.name());
 
         return;
     }
