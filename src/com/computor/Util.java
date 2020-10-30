@@ -3,7 +3,7 @@ package com.computor;
 import java.util.HashMap;
 
 public class Util {
-    enum EquationTypes {
+    public enum EquationTypes {
         constant,
         linear,
         quadratic,
@@ -50,6 +50,17 @@ public class Util {
             default:
                 throw new IllegalStateException("Couldn't recognise equation type");
         }
+    }
+
+    public static Term[] coefficientsExponentsToTerm(HashMap<Number, Number> coefficientsByExponent, String variable) {
+        Term[] terms = new Term[coefficientsByExponent.size()];
+        int i = -1;
+
+        for (HashMap.Entry<Number, Number> entry : coefficientsByExponent.entrySet()) {
+            terms[++i] = new Term((IntOrDouble) entry.getValue(), variable, new IntOrDouble(entry.getKey()));
+        }
+
+        return terms;
     }
 
     // Not allowed to use mathematical libraries

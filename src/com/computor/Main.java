@@ -67,6 +67,12 @@ public class Main {
             System.out.printf("Exponent: %s\tCoefficient: %s\n", entry.getKey(), entry.getValue());
         }
 
+        com.computor.Equations.Equation eqn = new com.computor.Equations.Equation(
+            coefficientsByExponent, eqnType, variable
+        );
+
+        System.out.printf("Equation object: %s\n", String.valueOf(eqn));
+
         System.out.printf("Equation type: %s\n", eqnType.name());
 
         return;

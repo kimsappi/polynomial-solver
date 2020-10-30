@@ -22,6 +22,12 @@ public class Term {
         }
     }
 
+    public Term(IntOrDouble coefficient, String variable, IntOrDouble exponent) {
+        this.coefficient = coefficient;
+        this.variable = variable;
+        this.exponent = exponent;
+    }
+
     public void multiplyByTerm(Term other) {
         if (this.variable != null && other.variable != null && !this.variable.equals(other.variable))
             throw new IllegalArgumentException("Cannot multiply Term by Operator");
