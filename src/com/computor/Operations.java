@@ -92,15 +92,18 @@ public class Operations {
 
     public static HashMap<Number, Number> collateTermsWithSameExponent(Term[] terms) {
         HashMap<Number, Number> coefficientsByExponent = new HashMap<>();
-        IntOrDouble tmp;
+        Number tmp;
+        IntOrDouble tmpObject;
 
         for (Term term : terms) {
-            tmp = (IntOrDouble) coefficientsByExponent.get(term.getExponent());
+            tmp = coefficientsByExponent.get(term.getExponent().getValue());
+            System.out.printf("tmp: %s\n", String.valueOf(tmp));
             if (tmp == null)
-                coefficientsByExponent.put(term.getExponent(), term.getCoefficient());
+                coefficientsByExponent.put(term.getExponent().getValue(), term.getCoefficient());
             else {
-                tmp.sum(term.getCoefficient());
-                coefficientsByExponent.put(term.getExponent(), tmp);
+                tmpObject = (IntOrDouble) tmp;
+                tmpObject.sum(term.getCoefficient());
+                coefficientsByExponent.put(term.getExponent().getValue(), tmpObject);
             }
         }
 

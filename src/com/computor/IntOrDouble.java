@@ -1,6 +1,7 @@
 package com.computor;
 
 public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
+    public static final double nonZeroThreshold = 0.000000001;
     private boolean isInteger = false;
     private double dbl;
     private int integer;
@@ -19,6 +20,13 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
             return this.integer;
         else
             return this.dbl;
+    }
+
+    public boolean isNonZero() {
+        if (this.isInteger)
+            return Util.abs(this.integer) > IntOrDouble.nonZeroThreshold;
+        else
+            return Util.abs(this.dbl) > IntOrDouble.nonZeroThreshold;
     }
 
     public void sum(IntOrDouble other) {
