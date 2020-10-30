@@ -16,11 +16,25 @@ public class Equation {
     }
 
     public String toString() {
-        String[] termStrs = new String[terms.length];
+        Object[][] termStrs = new Object[terms.length][2];
+        String[] finalTermStrs = new String[terms.length];
+        String tmp;
         int i = -1;
-        for (com.computor.Term term : this.terms)
-            termStrs[++i] = String.valueOf(term);
 
-        return String.format("%s = 0", String.join(" ", termStrs));
+        for (com.computor.Term term : this.terms)
+            termStrs[++i] = term.toFinalPrintString();
+
+        for (i = 0; i < termStrs.length; ++i) {
+            tmp = "";
+            if (i > 0 || !((boolean) termStrs[i][1]))
+                tmp += "-";
+            else if (i > 0)
+                tmp += "+";
+            tmp += " " + termStrs[i][0];
+
+            finalTermStrs[i] = tmp;
+        }
+
+        return String.format("%s = 0", String.join(" ", finalTermStrs));
     }
 }

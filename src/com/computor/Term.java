@@ -45,6 +45,15 @@ public class Term {
         return String.format("%s * %s ^ %s", this.coefficient, this.variable, this.exponent);
     }
 
+    public Object[] toFinalPrintString() {
+        Object[] ret = new Object[2];
+
+        ret[0] = String.format("%s * %s ^ %s", this.coefficient.toFinalPrintString(), this.variable, this.exponent);
+        ret[1] = this.coefficient.isPositive();
+
+        return ret;
+    }
+
     public String getVariable() {
         return this.variable;
     }

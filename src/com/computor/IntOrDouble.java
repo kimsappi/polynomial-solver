@@ -29,6 +29,13 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
             return Util.abs(this.dbl) > IntOrDouble.nonZeroThreshold;
     }
 
+    public boolean isPositive() {
+        if (this.isInteger)
+            return this.integer > 0;
+        else
+            return this.dbl > 0;
+    }
+
     public void sum(IntOrDouble other) {
         if (this.isInteger) {
             if (other.isInteger())
@@ -58,10 +65,18 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
         }
     }
 
-    public String toString() {
-        String format = this.isInteger ? "%d" : "%f";
+    private String getStringFormatString() { return this.isInteger ? "%d" : "%f"; }
 
-        return String.format(format, this.getValue());
+    public String toString() {
+
+
+        return String.format(this.getStringFormatString(), this.getValue());
+    }
+
+    public String toFinalPrintString() {
+        Number value = this.isInteger ? Util.abs(this.integer) : Util.abs(this.dbl);
+
+        return String.format(this.getStringFormatString(), this.isInteger ? Util.abs(this.integer) : Util.abs(this.dbl));
     }
 
     public boolean isInteger() {
