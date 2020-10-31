@@ -3,9 +3,7 @@ package com.computor.Equations;
 import com.computor.IntOrDouble;
 
 public class QuadraticEquation implements IEquation {
-    private com.computor.IntOrDouble a;
-    private com.computor.IntOrDouble b;
-    private com.computor.IntOrDouble c;
+    private com.computor.IntOrDouble a, b, c;
 
     public QuadraticEquation(com.computor.Term[] terms) {
         this.a = terms[2].getCoefficient();

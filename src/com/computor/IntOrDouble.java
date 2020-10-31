@@ -2,6 +2,7 @@ package com.computor;
 
 public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
     public static final double nonZeroThreshold = 0.000000001;
+    public static final int maxSqrtIterations = 9999;
     private boolean isInteger = false;
     // I wonder if I could just have a 'private Number value'
     private double dbl;
@@ -66,6 +67,12 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
         }
     }
 
+    public double dividedBy(IntOrDouble other) {
+        double thisValue = this.doubleValue(), otherValue = other.doubleValue();
+
+        return thisValue / otherValue;
+    }
+
     private String getStringFormatString() { return this.isInteger ? "%d" : "%f"; }
 
     public String toString() {
@@ -83,6 +90,23 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
 
     public boolean isInteger() {
         return this.isInteger;
+    }
+
+    public IntOrDouble sqrt(IntOrDouble x) {
+        if (x.compareTo(new IntOrDouble(0)) < 0)
+            throw new UnsupportedOperationException("Trying to sqrt negative IntOrDouble");
+
+        IntOrDouble tmp = x;
+        double divided;
+        // Babylonian method
+        for (int i = 0; i < maxSqrtIterations; ++i) {
+            divided = x.dividedBy(tmp);
+            tmp.sum(new IntOrDouble(divided));
+            tmp = new IntOrDouble(tmp.dividedBy(new IntOrDouble(2)));
+            if (tmp.doubleValue() - x.doubleValue() / tmp.doubleValue() < nonZeroThreshold)
+                return tmp;
+        }
+        throw new ArithmeticException("Couldn't find sqrt, number may be too large to find acceptable sqrt");
     }
 
     @Override
