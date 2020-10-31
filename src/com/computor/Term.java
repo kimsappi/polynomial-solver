@@ -46,9 +46,25 @@ public class Term {
     }
 
     public Object[] toFinalPrintString() {
-        Object[] ret = new Object[2];
+        if (!this.coefficient.isNonZero())
+            return null;
 
-        ret[0] = String.format("%s * %s ^ %s", this.coefficient.toFinalPrintString(), this.variable, this.exponent);
+        Object[] ret = new Object[2];
+        String absCoefficient = this.coefficient.absValueToString();
+        boolean showExponent = true;
+        String stringFormat;
+
+        if (this.exponent.isInteger() && (int) this.exponent.getValue() == 1)
+            showExponent = false;
+
+        if (!this.exponent.isNonZero())
+            stringFormat = String.format("%s", absCoefficient);
+        else if (!showExponent)
+            stringFormat = String.format("%s * %s", absCoefficient, this.variable);
+        else
+            stringFormat = String.format("%s * %s ^ %s", absCoefficient, this.variable, this.exponent);
+
+        ret[0] = stringFormat;
         ret[1] = this.coefficient.isPositive();
 
         return ret;

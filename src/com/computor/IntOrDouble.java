@@ -3,6 +3,7 @@ package com.computor;
 public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
     public static final double nonZeroThreshold = 0.000000001;
     private boolean isInteger = false;
+    // I wonder if I could just have a 'private Number value'
     private double dbl;
     private int integer;
 
@@ -68,15 +69,16 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
     private String getStringFormatString() { return this.isInteger ? "%d" : "%f"; }
 
     public String toString() {
-
-
         return String.format(this.getStringFormatString(), this.getValue());
     }
 
-    public String toFinalPrintString() {
-        Number value = this.isInteger ? Util.abs(this.integer) : Util.abs(this.dbl);
-
-        return String.format(this.getStringFormatString(), this.isInteger ? Util.abs(this.integer) : Util.abs(this.dbl));
+    public String absValueToString() {
+        // Not very elegant, but apparently even the possibility of having a wrong value for the format string is
+        // enough to make Java panic
+        if (this.isInteger)
+            return String.format("%d", Util.abs(this.integer));
+        else
+            return String.format("%f", Util.abs(this.dbl));
     }
 
     public boolean isInteger() {

@@ -1,5 +1,6 @@
 package com.computor.Equations;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Equation {
@@ -17,7 +18,7 @@ public class Equation {
 
     public String toString() {
         Object[][] termStrs = new Object[terms.length][2];
-        String[] finalTermStrs = new String[terms.length];
+        ArrayList<String> finalTermStrs = new ArrayList<>();
         String tmp;
         int i = -1;
 
@@ -25,6 +26,8 @@ public class Equation {
             termStrs[++i] = term.toFinalPrintString();
 
         for (i = 0; i < termStrs.length; ++i) {
+            if (termStrs[i] == null)
+                continue;
             tmp = "";
             if (i > 0 || !((boolean) termStrs[i][1]))
                 tmp += "-";
@@ -32,7 +35,7 @@ public class Equation {
                 tmp += "+";
             tmp += " " + termStrs[i][0];
 
-            finalTermStrs[i] = tmp;
+            finalTermStrs.add(tmp);
         }
 
         return String.format("%s = 0", String.join(" ", finalTermStrs));
