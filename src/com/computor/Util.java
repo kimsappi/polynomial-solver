@@ -7,7 +7,7 @@ public class Util {
         constant,
         linear,
         quadratic,
-        superquadratic
+        other
     }
 
     public static String getVariable(Term[] terms) {
@@ -36,7 +36,7 @@ public class Util {
             if (!(exponent.isInteger()) ||
                 ((exponent.intValue() < 0 || exponent.intValue() > 2) && coefficient.isNonZero())
             )
-                return Util.EquationTypes.superquadratic;
+                return Util.EquationTypes.other;
             else
                 maxExponent = exponent.intValue() > maxExponent ? exponent.intValue() : maxExponent;
         }
@@ -66,6 +66,10 @@ public class Util {
     // Not allowed to use mathematical libraries
     public static double abs(double x) { return x < 0 ? -x : x; }
     public static int abs(int x) { return x < 0 ? -x : x; }
+
+    public static IntOrDouble sqrt(IntOrDouble x) {
+        return new IntOrDouble(1);
+    };
 
     /*public static int getMaxExponent(Term[] terms) {
         Number max = 0;

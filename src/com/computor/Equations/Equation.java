@@ -1,11 +1,15 @@
 package com.computor.Equations;
 
+import com.computor.Util;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Arrays;
 
 public class Equation {
     private com.computor.Util.EquationTypes eqnType;
     private com.computor.Term[] terms;
+    private IEquation equation;
 
     public Equation(
         HashMap<Number, Number> coefficientsByExponent,
@@ -14,6 +18,14 @@ public class Equation {
     ) {
         this.eqnType = eqnType;
         this.terms = com.computor.Util.coefficientsExponentsToTerm(coefficientsByExponent, variable);
+        // Orders terms by ascending degree, as recommended in the subject
+        Arrays.sort(this.terms);
+
+        switch(eqnType) {
+            case quadratic:
+                this.equation = new QuadraticEquation(this.terms);
+                break;
+        }
     }
 
     public String toString() {

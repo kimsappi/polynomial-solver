@@ -1,6 +1,6 @@
 package com.computor;
 
-public class Term {
+public class Term implements Comparable<Term> {
     private IntOrDouble coefficient = new IntOrDouble(1);
     private String variable;
     private IntOrDouble exponent;
@@ -80,5 +80,9 @@ public class Term {
 
     public IntOrDouble getCoefficient() {
         return this.coefficient;
+    }
+
+    public int compareTo(Term other) {
+        return this.exponent.compareTo(other.getExponent());
     }
 }
