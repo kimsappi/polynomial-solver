@@ -58,8 +58,6 @@ public class Main {
 
         variable = Util.getVariable(leftSide);
 
-        // coefficients should contain the sum of the coefficients indexed by power
-        // e.g. 5 * X^0 - 3 * X^1 - 1 * X^2 would be [5, -3, -1]
         HashMap<Number, Number> coefficientsByExponent = Operations.collateTermsWithSameExponent(leftSide);
         eqnType = Util.checkEquationType(coefficientsByExponent);
 

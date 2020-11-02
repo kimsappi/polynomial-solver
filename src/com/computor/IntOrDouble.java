@@ -1,12 +1,21 @@
 package com.computor;
 
-public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
+public class IntOrDouble extends Number implements Comparable<IntOrDouble>, Cloneable {
     public static final double nonZeroThreshold = 0.000000001;
     public static final int maxSqrtIterations = 9999;
     private boolean isInteger = false;
     // I wonder if I could just have a 'private Number value'
     private double dbl;
     private int integer;
+
+    public IntOrDouble(IntOrDouble x) {
+        if (x.isInteger()) {
+            this.isInteger = true;
+            this.integer = x.intValue();
+        }
+        else
+            this.dbl = x.doubleValue();
+    }
 
     public IntOrDouble(Number x) {
         if (x instanceof Integer) {
@@ -92,11 +101,11 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
         return this.isInteger;
     }
 
-    public IntOrDouble sqrt(IntOrDouble x) {
+    public static IntOrDouble sqrt(IntOrDouble x) {
         if (x.compareTo(new IntOrDouble(0)) < 0)
             throw new UnsupportedOperationException("Trying to sqrt negative IntOrDouble");
 
-        IntOrDouble tmp = x;
+        IntOrDouble tmp = new IntOrDouble(x);
         double divided;
         // Babylonian method
         for (int i = 0; i < maxSqrtIterations; ++i) {
@@ -108,6 +117,16 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble> {
         }
         throw new ArithmeticException("Couldn't find sqrt, number may be too large to find acceptable sqrt");
     }
+
+//    public IntOrDouble clone() {
+//        IntOrDouble clone = (IntOrDouble) super.clone();
+//
+//        clone.isInteger = new Boolean(this.isInteger);
+//        clone.integer = new Integer(this.integer);
+//        clone.dbl = new Double(this.dbl);
+//
+//        return clone;
+//    }
 
     @Override
     public int compareTo(IntOrDouble other) {
