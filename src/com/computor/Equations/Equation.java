@@ -1,6 +1,7 @@
 package com.computor.Equations;
 
 import com.computor.Util;
+import com.computor.Term;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,12 @@ public class Equation {
         this.eqnType = eqnType;
         this.terms = com.computor.Util.coefficientsExponentsToTerm(coefficientsByExponent, variable);
         // Orders terms by ascending degree, as recommended in the subject
+//        System.out.println("Pre-sort:");
+//        for (Term term : terms) { System.out.printf("%s\n", term); }
         Arrays.sort(this.terms);
+
+//        System.out.println("Post-sort:");
+//        for (Term term : terms) { System.out.printf("%s\n", term); }
 
         switch(eqnType) {
             case quadratic:
@@ -41,7 +47,7 @@ public class Equation {
             if (termStrs[i] == null)
                 continue;
             tmp = "";
-            if (i > 0 || !((boolean) termStrs[i][1]))
+            if (i > 0 && !((boolean) termStrs[i][1]))
                 tmp += "-";
             else if (i > 0)
                 tmp += "+";
