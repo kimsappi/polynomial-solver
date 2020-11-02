@@ -50,6 +50,9 @@ public class Equation {
             finalTermStrs.add(tmp);
         }
 
-        return String.format("%s = 0", String.join(" ", finalTermStrs));
+        return String.format("%s = 0\nSolutions: %s",
+            String.join(" ", finalTermStrs),
+            this.equation.solve()
+        );
     }
 }

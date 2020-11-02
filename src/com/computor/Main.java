@@ -69,7 +69,7 @@ public class Main {
             coefficientsByExponent, eqnType, variable
         );
 
-        System.out.printf("Equation object: %s\n", String.valueOf(eqn));
+        System.out.printf("Equation object:\n###\n%s\n###\n", String.valueOf(eqn));
 
         System.out.printf("Equation type: %s\n", eqnType.name());
 
