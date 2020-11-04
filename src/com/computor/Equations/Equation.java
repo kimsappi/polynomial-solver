@@ -1,5 +1,6 @@
 package com.computor.Equations;
 
+import com.computor.IntOrDouble;
 import com.computor.Util;
 import com.computor.Term;
 
@@ -11,6 +12,7 @@ public class Equation {
     private com.computor.Util.EquationTypes eqnType;
     private com.computor.Term[] terms;
     private IEquation equation;
+    private IntOrDouble degree;
 
     public Equation(
         HashMap<Number, Number> coefficientsByExponent,
@@ -20,12 +22,8 @@ public class Equation {
         this.eqnType = eqnType;
         this.terms = com.computor.Util.coefficientsExponentsToTerm(coefficientsByExponent, variable);
         // Orders terms by ascending degree, as recommended in the subject
-//        System.out.println("Pre-sort:");
-//        for (Term term : terms) { System.out.printf("%s\n", term); }
         Arrays.sort(this.terms);
-
-//        System.out.println("Post-sort:");
-//        for (Term term : terms) { System.out.printf("%s\n", term); }
+        degree = this.terms[this.terms.length - 1].getExponent();
 
         switch(eqnType) {
             case quadratic:
@@ -36,6 +34,9 @@ public class Equation {
                 break;
             case constant:
                 this.equation = new ConstantEquation(this.terms, variable);
+                break;
+            default:
+                this.equation = new OtherEquation();
                 break;
         }
     }
@@ -63,8 +64,9 @@ public class Equation {
             finalTermStrs.add(tmp);
         }
 
-        return String.format("%s = 0\nSolutions: %s",
+        return String.format("Reduced form: %s = 0\nPolynomial degree: %s\n%s",
             String.join(" ", finalTermStrs),
+            this.degree,
             this.equation.solve()
         );
     }

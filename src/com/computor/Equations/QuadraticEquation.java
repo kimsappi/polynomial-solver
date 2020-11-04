@@ -74,7 +74,7 @@ public class QuadraticEquation implements IEquation {
     // Returning a string here will enable fractional output and other fancy stuff without too much extra work
     public String solve() {
         if (this.discriminant.doubleValue() > 0.0) {
-            return String.format("2 solutions: %f, %f",
+            return String.format("Discriminant is strictly positive, the two solutions are:\n%f\n%f",
                 this.positiveDiscriminantSolveOnce(false),
                 this.positiveDiscriminantSolveOnce(true)
             );
@@ -89,8 +89,8 @@ public class QuadraticEquation implements IEquation {
 //                String.format("%s / %s", solutions[0], solutions[1]) :
 //                String.format("%s", solutions[0]);
 
-            return String.format("Single solution (discriminant 0): %s", solutionStr);
+            return String.format("The discriminant is 0, the single solution is:\n%s", solutionStr);
         }
-        return "couldn't solve equation, temp (QuadraticEquation.solve())";
+        return "Couldn't solve quadratic equation, sorry!";
     }
 }
