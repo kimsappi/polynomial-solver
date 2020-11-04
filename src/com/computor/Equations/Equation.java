@@ -44,7 +44,7 @@ public class Equation {
         Object[][] termStrs = new Object[terms.length][2];
         ArrayList<String> finalTermStrs = new ArrayList<>();
         String tmp;
-        int i = -1;
+        int i = -1, termIndex = 0;
 
         for (com.computor.Term term : this.terms)
             termStrs[++i] = term.toFinalPrintString();
@@ -55,9 +55,10 @@ public class Equation {
             tmp = "";
             if (i > 0 && !((boolean) termStrs[i][1]))
                 tmp += "-";
-            else if (i > 0)
+            else if (termIndex > 0)
                 tmp += "+";
             tmp += " " + termStrs[i][0];
+            ++termIndex;
 
             finalTermStrs.add(tmp);
         }

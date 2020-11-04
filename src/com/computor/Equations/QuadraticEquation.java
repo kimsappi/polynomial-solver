@@ -47,17 +47,18 @@ public class QuadraticEquation implements IEquation {
         return numerator.dividedBy(denominator);
     }
 
-    private IntOrDouble[] zeroDiscriminantBeautifulSolve(int numerator, int denominator) {
+    private String zeroDiscriminantBeautifulSolve(int numerator, int denominator) {
         Fraction fraction = new Fraction(numerator, denominator);
         int[] ints = fraction.toArr();
         IntOrDouble[] intsOrDoubles = new IntOrDouble[2];
         intsOrDoubles[0] = new IntOrDouble(ints[0]);
         intsOrDoubles[1] = new IntOrDouble(ints[1]);
 
-        return intsOrDoubles;
+        return fraction.toString();
+        //return intsOrDoubles;
     }
 
-    private IntOrDouble[] zeroDiscriminantSolve() {
+    private Object zeroDiscriminantSolve() {
         IntOrDouble tmpB = new IntOrDouble(this.b), tmpA = new IntOrDouble(this.a);
 
         tmpB.multiply(new IntOrDouble(-1));
@@ -66,7 +67,7 @@ public class QuadraticEquation implements IEquation {
         if (this.b.isInteger() && this.a.isInteger())
             return zeroDiscriminantBeautifulSolve(tmpB.intValue(), tmpA.intValue());
         else {
-            return new IntOrDouble[] {new IntOrDouble(tmpB.dividedBy(tmpA))};
+            return new IntOrDouble(tmpB.dividedBy(tmpA));
         }
     }
 
@@ -78,10 +79,15 @@ public class QuadraticEquation implements IEquation {
                 this.positiveDiscriminantSolveOnce(true)
             );
         } else if (!this.discriminant.isNonZero()) {
-            IntOrDouble[] solutions = this.zeroDiscriminantSolve();
-            String solutionStr = solutions.length == 2 ?
-                String.format("%s / %s", solutions[0], solutions[1]) :
-                String.format("%s", solutions[0]);
+            Object solution = this.zeroDiscriminantSolve();
+            String solutionStr;
+            if (solution instanceof String)
+                solutionStr = (String) solution;
+            else
+                solutionStr = String.format("%s", (IntOrDouble) solution);
+//            String solutionStr = solutions.length == 2 ?
+//                String.format("%s / %s", solutions[0], solutions[1]) :
+//                String.format("%s", solutions[0]);
 
             return String.format("Single solution (discriminant 0): %s", solutionStr);
         }
