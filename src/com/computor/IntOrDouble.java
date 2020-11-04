@@ -72,7 +72,7 @@ public class IntOrDouble extends Number implements Comparable<IntOrDouble>, Clon
                 this.isInteger = false;
             }
         } else {
-            this.dbl *= (double) other.getValue();
+            this.dbl *= other.doubleValue();
         }
     }
 

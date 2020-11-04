@@ -17,20 +17,26 @@ public class QuadraticEquation implements IEquation {
         tempB.multiply(tempB);
         tempA.multiply(this.c);
         tempA.multiply(new IntOrDouble(-4));
+        tempB.sum(tempA);
 
         this.discriminant = tempB;
+
+//        System.out.printf("a b c disc: %s %s %s %s\n", this.a, this.b, this.c, this.discriminant);
     }
 
     private double positiveDiscriminantSolveOnce(boolean plus) {
         IntOrDouble numerator = new IntOrDouble(this.b),
                 denominator = new IntOrDouble(this.a),
-                discriminant = new IntOrDouble(this.discriminant);
+                discriminant = new IntOrDouble(IntOrDouble.sqrt(this.discriminant));
 
+//        System.out.printf("numer: %s denom: %s disc: %s\n", numerator, denominator, discriminant);
         numerator.multiply(new IntOrDouble(-1));
         if (!plus)
             discriminant.multiply(new IntOrDouble(-1));
         numerator.sum(discriminant);
         denominator.multiply(new IntOrDouble(2));
+
+//        System.out.printf("numer: %s denom: %s disc: %s\n", numerator, denominator, discriminant);
 
         return numerator.dividedBy(denominator);
     }
