@@ -2,14 +2,20 @@ package com.computor.Equations;
 
 import com.computor.IntOrDouble;
 import com.computor.Fraction;
+import com.computor.Term;
 
 public class QuadraticEquation implements IEquation {
-    private IntOrDouble a, b, c, discriminant;
+    private IntOrDouble a, b = new IntOrDouble(0), c = new IntOrDouble(0), discriminant;
 
-    public QuadraticEquation(com.computor.Term[] terms) {
-        this.a = terms[2].getCoefficient();
-        this.b = terms[1].getCoefficient();
-        this.c = terms[0].getCoefficient();
+    public QuadraticEquation(Term[] terms) {
+        for (Term term : terms) {
+            if (term.getExponent().equals(new IntOrDouble(2)))
+                this.a = term.getCoefficient();
+            else if (term.getExponent().equals(new IntOrDouble(1)))
+                this.b = term.getCoefficient();
+            else
+                this.c = term.getCoefficient();
+        }
 
         IntOrDouble tempA = new IntOrDouble(this.a);
         IntOrDouble tempB = new IntOrDouble(this.b);
@@ -68,9 +74,16 @@ public class QuadraticEquation implements IEquation {
     public String solve() {
         if (this.discriminant.doubleValue() > 0.0) {
             return String.format("2 solutions: %f, %f",
-                positiveDiscriminantSolveOnce(false),
-                positiveDiscriminantSolveOnce(true)
+                this.positiveDiscriminantSolveOnce(false),
+                this.positiveDiscriminantSolveOnce(true)
             );
+        } else if (!this.discriminant.isNonZero()) {
+            IntOrDouble[] solutions = this.zeroDiscriminantSolve();
+            String solutionStr = solutions.length == 2 ?
+                String.format("%s / %s", solutions[0], solutions[1]) :
+                String.format("%s", solutions[0]);
+
+            return String.format("Single solution (discriminant 0): %s", solutionStr);
         }
         return "couldn't solve equation, temp (QuadraticEquation.solve())";
     }
