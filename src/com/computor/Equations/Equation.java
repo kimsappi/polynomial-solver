@@ -31,6 +31,12 @@ public class Equation {
             case quadratic:
                 this.equation = new QuadraticEquation(this.terms);
                 break;
+            case linear:
+                this.equation = new LinearEquation(this.terms);
+                break;
+            case constant:
+                this.equation = new ConstantEquation(this.terms, variable);
+                break;
         }
     }
 

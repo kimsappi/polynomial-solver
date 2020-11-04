@@ -1,12 +1,15 @@
 package com.computor;
 
 public class Fraction {
-    private int n;
-    private int d;
+    private int n, d;
+    private int signMultiplier = 1;
 
     public Fraction(int numerator, int denominator) {
-        this.n = numerator;
-        this.d = denominator;
+        this.n = Util.abs(numerator);
+        this.d = Util.abs(denominator);
+
+        if (numerator * denominator < 0)
+            this.signMultiplier = -1;
 
         this.reduce();
     }
@@ -24,14 +27,12 @@ public class Fraction {
         return gcd(b, a % b);
     }
 
-    public int[] toArr() {
-        return new int[] {this.n, this.d};
-    }
+    public int[] toArr() { return new int[] {this.signMultiplier * this.n, this.d}; }
 
     public String toString() {
         if (this.d == 1)
             return String.format("%d", this.n);
         else
-            return String.format("%d / %d", this.n, this.d);
+            return String.format("%d / %d", this.signMultiplier * this.n, this.d);
     }
 }
