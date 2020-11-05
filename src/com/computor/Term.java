@@ -16,7 +16,7 @@ public class Term implements Comparable<Term> {
                 throw new IllegalArgumentException("Illegal term with 2 carets.");
             this.variable = split[0];
             if (split.length == 2)
-                this.exponent = new IntOrDouble(Integer.parseInt(split[1]));
+                this.exponent = Parser.parseIntOrDouble(split[1]);
             else
                 this.exponent = new IntOrDouble(1);
         }

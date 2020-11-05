@@ -49,6 +49,14 @@ public class main {
                 solve(equation).contains(degree),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
+
+        equation = "-3.1 * X^2 - X = -55";
+        assertTrue(
+                solve(equation).contains("-4.376") &&
+                        solve(equation).contains("4.0539") &&
+                        solve(equation).contains(degree),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
     }
 
     @Test
@@ -69,6 +77,26 @@ public class main {
         assertTrue(
                 solve(equation).contains("[0..2]") &&
                         solve(equation).contains("degree: 3"),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+
+        // Non-integer exponent
+        equation = "X^2 + 3 * X = -7 + X^3.1";
+        assertTrue(
+                solve(equation).contains("[0..2]") &&
+                        solve(equation).contains("degree: 3.1"),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+    }
+
+    @Test
+    public void chainedMultiplication() {
+        String testMethodIdentifier = "Chained multiplication:", degree = "degree: 2";;
+        String equation = "X^2 + 3 * 3 * X = -7 + X";
+        assertTrue(
+                solve(equation).contains("-7") &&
+                        solve(equation).contains("-1") &&
+                        solve(equation).contains(degree),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
     }
