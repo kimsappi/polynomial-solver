@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Main {
 
-    public static void solve(String equation) {
+    public static String solve(String equation) {
         String variable;
         Util.EquationTypes eqnType;
 
@@ -47,33 +47,33 @@ public class Main {
 
         Term[] leftSide = Operations.moveTermsToLeftSide(formulaMultiplied);
 
-        System.out.println("All on the left");
-        for (int i = 0; i < leftSide.length; ++i) {
-            System.out.printf(
-                    "value: %s\t type: %s\n",
-                    String.valueOf(leftSide[i]),
-                    leftSide[i].getClass().getName()
-            );
-        }
+//        System.out.println("All on the left");
+//        for (int i = 0; i < leftSide.length; ++i) {
+//            System.out.printf(
+//                    "value: %s\t type: %s\n",
+//                    String.valueOf(leftSide[i]),
+//                    leftSide[i].getClass().getName()
+//            );
+//        }
 
         variable = Util.getVariable(leftSide);
 
         HashMap<Number, Number> coefficientsByExponent = Operations.collateTermsWithSameExponent(leftSide);
         eqnType = Util.checkEquationType(coefficientsByExponent);
 
-        for (HashMap.Entry<Number, Number> entry : coefficientsByExponent.entrySet()) {
-            System.out.printf("Exponent: %s\tCoefficient: %s\n", entry.getKey(), entry.getValue());
-        }
+//        for (HashMap.Entry<Number, Number> entry : coefficientsByExponent.entrySet()) {
+//            System.out.printf("Exponent: %s\tCoefficient: %s\n", entry.getKey(), entry.getValue());
+//        }
 
         com.computor.Equations.Equation eqn = new com.computor.Equations.Equation(
             coefficientsByExponent, eqnType, variable
         );
 
-        System.out.printf("Equation object:\n###\n%s\n###\n", String.valueOf(eqn));
+//        System.out.printf("Equation object:\n###\n%s\n###\n", String.valueOf(eqn));
+//
+//        System.out.printf("Equation type: %s\n", eqnType.name());
 
-        System.out.printf("Equation type: %s\n", eqnType.name());
-
-        return;
+        return String.format("%s", String.valueOf(eqn));
     }
 
     public static void main(String[] args) {
@@ -84,7 +84,7 @@ public class Main {
             return;
         }
 
-        Main.solve(args[0]);
+        System.out.println(Main.solve(args[0]));
         System.out.printf("Original formula: %s\n", args[0]);
         return;
     }
