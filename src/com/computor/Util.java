@@ -26,8 +26,7 @@ public class Util {
     }
 
     public static Util.EquationTypes checkEquationType(HashMap<Number, Number> terms) {
-        IntOrDouble exponent;
-        IntOrDouble coefficient;
+        IntOrDouble exponent, coefficient;
         int maxExponent = 0;
 
         for (HashMap.Entry<Number, Number> entry : terms.entrySet()) {
@@ -38,7 +37,8 @@ public class Util {
             )
                 return Util.EquationTypes.other;
             else
-                maxExponent = exponent.intValue() > maxExponent ? exponent.intValue() : maxExponent;
+                maxExponent = exponent.intValue() > maxExponent && coefficient.isNonZero() ?
+                    exponent.intValue() : maxExponent;
         }
         switch(maxExponent) {
             case(0):

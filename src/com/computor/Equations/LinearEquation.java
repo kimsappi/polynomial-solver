@@ -11,17 +11,20 @@ public class LinearEquation implements IEquation {
         for (Term term : terms) {
             if (term.getExponent().equals(new IntOrDouble(1)))
                 this.k = term.getCoefficient();
-            else
+            else if (term.getExponent().equals(new IntOrDouble(0)))
                 this.b = term.getCoefficient();
         }
+        // kx + b = 0 => x = -b/k
+        this.k.multiply(new IntOrDouble(-1));
     }
 
     public String solve() {
-        if (this.k.isInteger() && this.b.isInteger()) {
-            return new Fraction(this.b.intValue(), this.k.intValue()).toString();
-        }
-        else {
-            return String.format("%f", this.b.dividedBy(this.k));
-        }
+        String solution;
+        if (this.k.isInteger() && this.b.isInteger())
+            solution = new Fraction(this.b.intValue(), this.k.intValue()).toString();
+        else
+            solution = String.format("%f", this.b.dividedBy(this.k));
+
+        return String.format("The single solution is: %s", solution);
     }
 }

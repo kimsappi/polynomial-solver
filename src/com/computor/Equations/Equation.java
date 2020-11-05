@@ -12,7 +12,7 @@ public class Equation {
     private com.computor.Util.EquationTypes eqnType;
     private com.computor.Term[] terms;
     private IEquation equation;
-    private IntOrDouble degree;
+    private IntOrDouble degree = new IntOrDouble(0);
 
     public Equation(
         HashMap<Number, Number> coefficientsByExponent,
@@ -23,17 +23,24 @@ public class Equation {
         this.terms = com.computor.Util.coefficientsExponentsToTerm(coefficientsByExponent, variable);
         // Orders terms by ascending degree, as recommended in the subject
         Arrays.sort(this.terms);
-        degree = this.terms[this.terms.length - 1].getExponent();
+        for (Term term : this.terms) {
+            if (term.getExponent().isNonZero()) {
+                this.degree = term.getExponent();
+            }
+        }
 
         switch(eqnType) {
             case quadratic:
                 this.equation = new QuadraticEquation(this.terms);
+                this.degree = new IntOrDouble(2);
                 break;
             case linear:
                 this.equation = new LinearEquation(this.terms);
+                this.degree = new IntOrDouble(1);
                 break;
             case constant:
                 this.equation = new ConstantEquation(this.terms, variable);
+                this.degree = new IntOrDouble(0);
                 break;
             default:
                 this.equation = new OtherEquation();

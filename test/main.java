@@ -33,12 +33,12 @@ public class main {
 
     @Test
     public void basicQuadratic() {
-        String testMethodIdentifier = "Basic quadratic:";
+        String testMethodIdentifier = "Basic quadratic:", degree = "degree: 2";
         String equation = "X^2 = 0";
         assertTrue(
         solve(equation).contains("single solution") &&
                 solve(equation).contains("is:\n0") &&
-                solve(equation).contains("degree: 2"),
+                solve(equation).contains(degree),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
 
@@ -46,19 +46,29 @@ public class main {
         assertTrue(
         solve(equation).contains("-1.79128") &&
                 solve(equation).contains("2.79128") &&
-                solve(equation).contains("degree: 2"),
+                solve(equation).contains(degree),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
     }
 
     @Test
     public void basicLinear() {
-        String testMethodIdentifier = "Basic linear:";
+        String testMethodIdentifier = "Basic linear:", degree = "degree: 1";
         String equation = "X^2 + 3 * X = -7 + X^2";
-        System.out.println(solve(equation));
         assertTrue(
         solve(equation).contains("-7 / 3") &&
-                solve(equation).contains("degree: 1"),
+                solve(equation).contains(degree),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+    }
+
+    @Test
+    public void basicOther() {
+        String testMethodIdentifier = "Basic other:";
+        String equation = "X^2 + 3 * X = -7 + X^3";
+        assertTrue(
+                solve(equation).contains("[0..2]") &&
+                        solve(equation).contains("degree: 3"),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
     }
