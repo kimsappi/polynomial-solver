@@ -53,6 +53,17 @@ public class main {
                 String.format("%s %s", testMethodIdentifier, equation)
         );
 
+        // Terms cancel out properly even if they're on the same side
+        equation = "2 * X^2 - X^2 - X = 5";
+        solution = solve(equation);
+        assertTrue(
+                solution.contains("-5 - 1 * X + X^2 = 0") &&
+                        solution.contains("-1.79128") &&
+                        solution.contains("2.79128") &&
+                        solution.contains(degree),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+
         equation = "-3.1 * X^2 - X = -55";
         solution = solve(equation);
         assertTrue(
@@ -136,6 +147,10 @@ public class main {
                         solution.contains("3.7320"),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
+
+        // Multiple different variables -> error
+        final String multivariateEquation = "X^2 - 3 * asd = -1 + Y";
+        assertThrows(IllegalArgumentException.class, () -> {solve(multivariateEquation);});
     }
 
     @Test
