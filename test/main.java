@@ -99,11 +99,21 @@ public class main {
 
     @Test
     public void basicOther() {
+        // Third degree
         String testMethodIdentifier = "Basic other:";
         String equation = "X^2 + 3 * X = -7 + X^3", solution = solve(equation);;
         assertTrue(
                 solution.contains("[0..2]") &&
                         solution.contains("degree: 3"),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+
+        // Negative degree
+        equation = "X^2 + 3 * X = -7 + X^-1";
+        solution = solve(equation);;
+        assertTrue(
+                solution.contains("[0..2]") &&
+                        solution.contains("degree: 2"),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
 
@@ -113,6 +123,17 @@ public class main {
         assertTrue(
                 solution.contains("[0..2]") &&
                         solution.contains("degree: 3.1"),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+
+        // String as variable
+        equation = "asd^2 - 3 * asd = -1 + asd";
+        solution = solve(equation);
+        assertTrue(
+                solution.contains("1 - 4 * asd + asd^2 = 0") &&
+                        solution.contains("degree: 2") &&
+                        solution.contains("0.2679") &&
+                        solution.contains("3.7320"),
                 String.format("%s %s", testMethodIdentifier, equation)
         );
     }

@@ -66,6 +66,8 @@ public class Term implements Comparable<Term> {
             stringFormat = String.format("%s", this.variable);
         else if (!showExponent)
             stringFormat = String.format("%s * %s", absCoefficient, this.variable);
+        else if (!showCoefficient)
+            stringFormat = String.format("%s^%s", this.variable, this.exponent);
         else
             stringFormat = String.format("%s * %s^%s", absCoefficient, this.variable, this.exponent);
 
