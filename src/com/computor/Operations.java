@@ -36,9 +36,9 @@ public class Operations {
 
         for (int i = 0; i < multiplicationIndices.size(); ++i) {
             index = multiplicationIndices.get(i).intValue();
-            formula[index] = Operations.performMultiplication(formula[index - 1], formula[index + 1]);
+            formula[index + 1] = Operations.performMultiplication(formula[index - 1], formula[index + 1]);
             formula[index - 1] = null;
-            formula[index + 1] = null;
+            formula[index] = null;
         }
 
         Object[] multiplicationsDone = new Object[formula.length - 2 * multiplicationIndices.size()];

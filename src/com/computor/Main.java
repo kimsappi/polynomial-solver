@@ -21,7 +21,6 @@ public class Main {
             );
         }*/
         // Multiplies all terms around multiplication operators together
-        // TODO test multiple chained multiplications e.g. '3 * 3 * 3'
         Object[] formulaMultiplied = Operations.performMultiplications(formulaTyped);
 
 /*        System.out.println("After multiplications:");

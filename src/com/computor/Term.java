@@ -51,18 +51,23 @@ public class Term implements Comparable<Term> {
 
         Object[] ret = new Object[2];
         String absCoefficient = this.coefficient.absValueToString();
-        boolean showExponent = true;
+        boolean showExponent = true, showCoefficient = true;
         String stringFormat;
 
         if (this.exponent.isInteger() && (int) this.exponent.getValue() == 1)
             showExponent = false;
 
+        if (this.coefficient.isInteger() && (int) this.coefficient.getValue() == 1)
+            showCoefficient = false;
+
         if (!this.exponent.isNonZero())
             stringFormat = String.format("%s", absCoefficient);
+        else if (!showExponent && !showCoefficient)
+            stringFormat = String.format("%s", this.variable);
         else if (!showExponent)
             stringFormat = String.format("%s * %s", absCoefficient, this.variable);
         else
-            stringFormat = String.format("%s * %s ^ %s", absCoefficient, this.variable, this.exponent);
+            stringFormat = String.format("%s * %s^%s", absCoefficient, this.variable, this.exponent);
 
         ret[0] = stringFormat;
         ret[1] = this.coefficient.isPositive();

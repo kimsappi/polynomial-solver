@@ -61,11 +61,13 @@ public class Equation {
             if (termStrs[i] == null)
                 continue;
             tmp = "";
-            if (i > 0 && !((boolean) termStrs[i][1]))
+            if (!((boolean) termStrs[i][1]))
                 tmp += "-";
             else if (termIndex > 0)
                 tmp += "+";
-            tmp += " " + termStrs[i][0];
+            if (termIndex > 0)
+                tmp += " ";
+            tmp += termStrs[i][0];
             ++termIndex;
 
             finalTermStrs.add(tmp);
