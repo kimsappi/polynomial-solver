@@ -53,12 +53,34 @@ public class main {
                 String.format("%s %s", testMethodIdentifier, equation)
         );
 
-        solution = solve(equation);
         equation = "-3.1 * X^2 - X = -55";
-        System.out.println(solution);
+        solution = solve(equation);
         assertTrue(
                 solution.contains("-4.376") &&
                         solution.contains("4.0539") &&
+                        solution.contains(degree),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+
+        // 0 as constant term
+        equation = "17.1 * X^2 - X - 0 = 0";
+        solution = solve(equation);
+        assertTrue(
+                solution.contains("-1 * X + 17.100000 * X^2 = 0") &&
+                        solution.contains("0.000") &&
+                        solution.contains("0.0584") &&
+                        solution.contains(degree),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+    }
+
+    @Test
+    public void complexQuadratic() {
+        String testMethodIdentifier = "Complex quadratic:", degree = "degree: 2";
+        String equation = "X^2 + X + 1 = 0", solution = solve(equation);
+        assertTrue(
+                solution.contains("(-1 - 1.732051i) / 2") &&
+                        solution.contains("(-1 + 1.732051i) / 2") &&
                         solution.contains(degree),
                 String.format("%s %s", testMethodIdentifier, equation)
         );

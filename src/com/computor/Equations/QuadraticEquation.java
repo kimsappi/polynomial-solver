@@ -5,7 +5,7 @@ import com.computor.Fraction;
 import com.computor.Term;
 
 public class QuadraticEquation implements IEquation {
-    private IntOrDouble a, b = new IntOrDouble(0), c = new IntOrDouble(0), discriminant;
+    private IntOrDouble a, b = new IntOrDouble(0), c = new IntOrDouble(0), discriminant, iCoefficient;
 
     public QuadraticEquation(Term[] terms) {
         for (Term term : terms) {
@@ -71,6 +71,24 @@ public class QuadraticEquation implements IEquation {
         }
     }
 
+    private String solveComplexRoot(boolean positive) {
+        IntOrDouble denominator = new IntOrDouble(this.a), b = new IntOrDouble(this.b);
+        denominator.multiply(new IntOrDouble(2));
+        b.multiply(new IntOrDouble(-1));
+        return String.format("(%s %s %si) / %s",
+                b,
+                positive ? "+" : "-",
+                this.iCoefficient,
+                denominator
+        );
+    }
+
+    private String solveComplexRoots() {
+        this.discriminant.multiply(new IntOrDouble(-1));
+        this.iCoefficient = IntOrDouble.sqrt(this.discriminant);
+        return String.format("%s\n%s", solveComplexRoot(false), solveComplexRoot(true));
+    }
+
     // Returning a string here will enable fractional output and other fancy stuff without too much extra work
     public String solve() {
         if (this.discriminant.doubleValue() > 0.0) {
@@ -90,7 +108,9 @@ public class QuadraticEquation implements IEquation {
 //                String.format("%s", solutions[0]);
 
             return String.format("The discriminant is 0, the single solution is:\n%s", solutionStr);
-        }
-        return "Couldn't solve quadratic equation, sorry!";
+        } else
+            return String.format("Discriminant is strictly negative, the two complex solutions are:\n%s",
+                this.solveComplexRoots()
+            );
     }
 }
