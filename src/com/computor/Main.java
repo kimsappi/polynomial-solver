@@ -76,15 +76,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.printf("Original formula: %s\n", args[0]);
-
         if (args.length != 1) {
             System.out.println("Please give a formula as a parameter.");
             return;
         }
 
-        System.out.println(Main.solve(args[0]));
-        System.out.printf("Original formula: %s\n", args[0]);
+        try {
+            System.out.println(Main.solve(args[0]));
+        } catch(Exception e) {
+            System.out.println("Invalid input");
+        }
         return;
     }
 
