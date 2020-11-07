@@ -74,7 +74,7 @@ public class Equation {
         }
 
         return String.format("Reduced form: %s = 0\nPolynomial degree: %s\n%s",
-            String.join(" ", finalTermStrs),
+            finalTermStrs.size() > 0 ? String.join(" ", finalTermStrs) : "0",
             this.degree,
             this.equation.solve()
         );

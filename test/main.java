@@ -175,4 +175,15 @@ public class main {
 
     }
 
+    @Test
+    public void everythingCancels() {
+        String testMethodIdentifier = "Everything cancels out:";
+        String equation = "4 * X^2 + 18 * X = 4 * X^2 + 18 * X", solution = solve(equation);
+        assertTrue(
+            solution.contains("degree: 0") &&
+                    solution.contains("form: 0 = 0\n"),
+                String.format("%s %s", testMethodIdentifier, equation)
+        );
+    }
+
 }

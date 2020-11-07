@@ -16,7 +16,7 @@ public class ConstantEquation implements IEquation {
     }
 
     public String solve() {
-        if (this.value.isNonZero())
+        if (this.value != null && this.value.isNonZero())
             return "The equation is false";
         else
             return String.format("The equation is true with all values of '%s'", this.variable);
